@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verix</title>
+    <link rel="shortcut icon" href="images/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="grid-bg"></div>
+    <div class="grid-glow"></div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="header">
+                <img src="images/Logo.png" alt="Logo">
+                <h2>Verix</h2>
+            </div>
+
+            <div class="tabs">
+                <button type="button" class="tab active" id="showL">Login</button>
+                <button type="button" class="tab" id="showS">Sign Up</button>
+            </div>
+
+            <form id="loginForm" class="active" autocomplete="on">
+
+                <div class="inputs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <path d="M3 7l9 6 9-6" />
+                    </svg>
+
+                    <input type="email" id="L_email" placeholder="Email" required autocomplete="email">
+                </div>
+
+                <div class="inputs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="11" width="16" height="9" rx="2" />
+                        <path d="M8 11V8a4 4 0 1 1 8 0v3" />
+                    </svg>
+
+                    <input type="password" id="L_pas" placeholder="Password" required autocomplete="current-password">
+
+                    <button type="button" id="eyebtn" aria-label="Show Password"></button>
+                </div>
+
+                <button type="submit" class="btn" id="L_btn">Login</button>
+
+                <span>Don't have an account? <strong id="rs">Sign Up</strong></span>
+
+            </form>
+
+            <form id="signupForm" autocomplete="on">
+
+                <div class="inputs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21a8 8 0 0 0-16 0" />
+                        <circle cx="12" cy="8" r="4" />
+                    </svg>
+
+                    <input type="text" id="S_name" placeholder="Full Name" required autocomplete="name">
+                </div>
+
+                <div class="inputs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <path d="M3 7l9 6 9-6" />
+                    </svg>
+
+                    <input type="email" id="S_email" placeholder="Email" required autocomplete="email">
+                </div>
+
+                <div class="inputs">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="11" width="16" height="9" rx="2" />
+                        <path d="M8 11V8a4 4 0 1 1 8 0v3" />
+                    </svg>
+
+                    <input type="password" id="S_pas" placeholder="Password" required autocomplete="new-password">
+
+                    <button type="button" id="eyebtn2" aria-label="Show Password"></button>
+                </div>
+
+                <button type="submit" class="btn" id="S_btn">Sign Up</button>
+
+                <span>Already have an account? <strong id="rl">Login</strong></span>
+
+              <div class="social-divider">
+    <span>or continue with</span>
+</div>
+
+<div class="social-buttons">
+    <button type="button" id="googleBtn" class="social-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 48 48">
+            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.3-.4-3.5z"/>
+            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.6 6.1 29.6 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+            <path fill="#4CAF50" d="M24 44c5.5 0 10.4-2.1 14.1-5.5l-6.5-5.5c-2.1 1.6-4.8 2.5-7.6 2.5-5.3 0-9.7-3.3-11.3-8H6.2C9.5 36.1 16.1 44 24 44z"/>
+            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.2-3.5 5.7-6.7 7.2l6.5 5.5C39 37.1 44 31.2 44 24c0-1.2-.1-2.3-.4-3.5z"/>
+        </svg>
+        <span>Continue with Google</span>
+    </button>
+
+    <button type="button" id="githubBtn" class="social-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.49-2.69-.95-2.69-.95-.36-.91-.89-1.15-.89-1.15-.73-.5.06-.49.06-.49.8.06 1.22.82 1.22.82.72 1.22 1.88.87 2.34.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82A7.7 7.7 0 0 1 8 4.77c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.55.82 1.26.82 2.13 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        <span>Continue with GitHub</span>
+    </button>
+</div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
