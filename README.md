@@ -1,4 +1,5 @@
 # Heckaton
+<<<<<<< HEAD
 
 A small web application for asset maintenance management.
 
@@ -16,3 +17,6 @@ Key files:
 - `config/firebase.js`: Firebase initialization and exports for authentication and Firestore.
 
 The app is intended as a user-specific asset tracking system where each signed-in user can create assets, report and manage issues, and view maintenance history.
+=======
+https://bilal12-sys.github.io/Verix/
+>>>>>>> b1d8807f8da0f98bdece3d3a8292aec1f3babbe5
