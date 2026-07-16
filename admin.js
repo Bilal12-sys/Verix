@@ -5,6 +5,7 @@ import {
     serverTimestamp,
     getDocs,
     deleteDoc,
+    updateDoc,
     doc
 } from "./config/firebase.js";
 

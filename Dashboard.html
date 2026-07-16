@@ -11,13 +11,13 @@
 
 <body>
 
-
-
+    <!-- Decorative background layers -->
     <div class="grid-bg"></div>
     <div class="grid-glow"></div>
 
     <div class="main">
 
+        <!-- Sidebar: logo, nav items, and logout button -->
         <aside>
             <div class="logo">
                 <img src="images/Logo.png" alt="logo">
@@ -109,6 +109,7 @@
             </div>
         </aside>
 
+        <!-- Dashboard section: stat cards, recent issues table, and Add Asset modal -->
         <section class="content" id="Dashboard_Section">
 
             <header>
@@ -225,7 +226,7 @@
                 </div>
             </div>
 
-
+            <!-- Add Asset modal (hidden by default, opened via #openAsset) -->
             <div class="assetModal" id="assetModal">
 
                 <div class="assetBox">
@@ -329,28 +330,119 @@
 
             </div>
 
-
         </section>
 
-
-
-
-
-
-
-
-
+        <!-- Assets section: search, asset cards, Edit Asset modal, and View Asset modal -->
+         
         <section id="Asset_Section">
+
             <div class="serches">
                 <input type="search" id="Asset_Serch" placeholder="Search Asset">
             </div>
 
-            <div class="Asset_boxes">
+            <div class="Asset_boxes"></div>
 
+            <div class="edit_asset_modal" id="edit_asset_modal">
+                <div class="edit_asset_box">
 
+                    <button class="edit_close" id="edit_close">&times;</button>
 
+                    <div class="edit_header">
+                        <h2>Edit Asset</h2>
+                        <p>Update the asset information below.</p>
+                    </div>
 
+                    <form id="edit_asset_form">
 
+                        <div class="edit_image_section">
+
+                            <div class="edit_preview_box">
+                                <img src="" id="edit_preview" alt="Asset Image">
+                            </div>
+
+                            <label for="edit_image" class="edit_upload_btn">
+                                Change Image
+                            </label>
+
+                            <input type="file" id="edit_image" accept="image/*" hidden>
+
+                        </div>
+
+                        <div class="edit_grid">
+
+                            <div class="edit_input">
+                                <label>Asset Name</label>
+                                <input type="text" id="edit_name" placeholder="Asset Name" required>
+                            </div>
+
+                            <div class="edit_input">
+                                <label>Asset ID</label>
+                                <input type="text" id="edit_asset_id" readonly>
+                            </div>
+
+                            <div class="edit_input">
+                                <label>Category</label>
+                                <select id="edit_category" required>
+                                    <option value="">Select Category</option>
+                                    <option>Laptop</option>
+                                    <option>Desktop</option>
+                                    <option>Printer</option>
+                                    <option>Monitor</option>
+                                    <option>Projector</option>
+                                    <option>Networking</option>
+                                    <option>Furniture</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="edit_input">
+                                <label>Department</label>
+                                <select id="edit_department" required>
+                                    <option value="">Select Department</option>
+                                    <option>IT</option>
+                                    <option>HR</option>
+                                    <option>Finance</option>
+                                    <option>Admin</option>
+                                    <option>Marketing</option>
+                                    <option>Operations</option>
+                                </select>
+                            </div>
+
+                            <div class="edit_input">
+                                <label>Location</label>
+                                <input type="text" id="edit_location" placeholder="Asset Location" required>
+                            </div>
+
+                            <div class="edit_input">
+                                <label>Status</label>
+                                <select id="edit_status" required>
+                                    <option>Active</option>
+                                    <option>Maintenance</option>
+                                    <option>Inactive</option>
+                                    <option>Retired</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="edit_description">
+                            <label>Description</label>
+                            <textarea id="edit_description" rows="5"
+                                placeholder="Write asset description..."></textarea>
+                        </div>
+
+                        <div class="edit_footer">
+                            <button type="button" id="edit_cancel" class="cancel_btn">
+                                Cancel
+                            </button>
+                            <button type="submit" id="edit_save" class="save_btn">
+                                Save Changes
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
 
             <div class="view_div" id="view_div">
@@ -361,7 +453,7 @@
                             <img src="" id="view_img" alt="Asset Image">
                         </div>
                         <div class="view_title">
-                            <h2 id="view_name">hhhh</h2>
+                            <h2 id="view_name"></h2>
                         </div>
                     </div>
                     <div class="view_body">
@@ -415,19 +507,16 @@
                     </div>
                 </div>
             </div>
-    </div>
 
-
-    </section>
+        </section>
 
     </div>
-
-
-
-
 
 </body>
+
+<!-- App scripts: dashboard logic, admin logic, and QR code generator library -->
 <script type="module" src="dashboard.js"></script>
 <script type="module" src="admin.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </html>
