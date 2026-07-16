@@ -386,7 +386,7 @@ login.addEventListener("submit", async (e) => {
             setTimeout(() => {
                 switch (userData.role) {
                     case "Admin":
-                        window.location.href = "dashboard.html";
+                        window.location.href = "Dashboard.html";
                         break;
 
                     case "Technician":
