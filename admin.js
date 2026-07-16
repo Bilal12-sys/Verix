@@ -547,37 +547,42 @@ await loadAssets();
 Asset_view_box_close.addEventListener('click', () => {
     Asset_full_view.classList.remove("show")
 })
+const BASE_URL = "https://verix-app.netlify.app";
 
 open_public_page.addEventListener("click", () => {
 
     const assetId = open_public_page.dataset.id;
 
     window.open(
-        `public.html?id=${encodeURIComponent(assetId)}`,
+        `${BASE_URL}/public.html?id=${encodeURIComponent(assetId)}`,
         "_blank"
     );
 
 });
+
 download_qr.addEventListener("click", () => {
 
     if (!view_qr_img.src) {
-         const pop = box("No qr code", "error");
-    closeBox(pop, 1200);
+        const pop = box("No QR code available.", "error");
+        closeBox(pop, 1200);
         return;
     }
+
     const a = document.createElement("a");
     a.href = view_qr_img.src;
     a.download = `${view_assetId.textContent}-QR.png`;
+
     document.body.appendChild(a);
     a.click();
     a.remove();
+
 });
 
 copy_link.addEventListener("click", async () => {
 
     const assetId = open_public_page.dataset.id;
 
-    const link = `${window.location.origin}/public.html?id=${encodeURIComponent(assetId)}`;
+    const link = `${BASE_URL}/public.html?id=${encodeURIComponent(assetId)}`;
 
     try {
         await navigator.clipboard.writeText(link);
@@ -586,10 +591,12 @@ copy_link.addEventListener("click", async () => {
         closeBox(pop, 1500);
 
     } catch (error) {
+
         console.error(error);
 
         const pop = box("Failed to copy link.", "error");
         closeBox(pop, 1500);
+
     }
 
 });
