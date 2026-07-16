@@ -49,7 +49,7 @@ function removeLoader() {
     if (!loaderEl) return; // nothing to remove, avoid throwing
 
     loaderEl.classList.add("hide");
-     loaderEl.remove()
+    loaderEl.remove()
 }
 
 function closeBox(pop, delay = 1500) {
@@ -307,11 +307,11 @@ form.addEventListener("submit", async (e) => {
         submitBtn.textContent = "Saving...";
     }
 
-    loader(); 
+    loader();
 
     const publicURL = `https://yourdomain.com/asset.html?id=${fields.Asset_id}`;
 
-const qrImage = await generateQR(publicURL);
+    const qrImage = await generateQR(publicURL);
 
     try {
         let imageURL = "";
@@ -329,7 +329,7 @@ const qrImage = await generateQR(publicURL);
             status: fields.Asset_status,
             description: fields.Asset_description,
             image: imageURL,
-              qr: qrImage,
+            qr: qrImage,
             createdAt: serverTimestamp()
         });
 
@@ -380,6 +380,30 @@ const view_created = document.getElementById("view_created");
 const view_description = document.getElementById("view_description");
 const view_qr_img = document.getElementById("view_qr_img");
 const Asset_view_box_close = document.getElementById("view_close");
+
+// ==============================
+// Edit Asset Modal
+// ==============================
+
+
+const edit_asset_modal = document.getElementById("edit_asset_modal");
+const editForm = document.getElementById("edit_asset_form");
+
+const editPreview = document.getElementById("edit_preview");
+const editImage = document.getElementById("edit_image");
+
+const editName = document.getElementById("edit_name");
+const editAssetId = document.getElementById("edit_asset_id");
+const editCategory = document.getElementById("edit_category");
+const editDepartment = document.getElementById("edit_department");
+const editLocation = document.getElementById("edit_location");
+const editStatus = document.getElementById("edit_status");
+const editDescription = document.getElementById("edit_description");
+
+const editClose = document.getElementById("edit_close");
+const editCancel = document.getElementById("edit_cancel");
+
+let currentEditDocId = null;
 
 
 function Show_Dashboard_Section() {
@@ -476,6 +500,7 @@ async function loadAssets() {
             const editBtn = card.querySelector(".Asset_box_edit");
             const deleteBtn = card.querySelector(".Asset_box_delete");
 
+
             viewBtn.addEventListener("click", () => {
 
                 view_img.src = asset.image || "";
@@ -486,7 +511,7 @@ async function loadAssets() {
                 view_location.textContent = asset.location || "";
                 view_status2.textContent = asset.status || "";
                 view_description.textContent = asset.description || "";
-                 open_public_page.dataset.id = asset.assetId;
+                open_public_page.dataset.id = asset.assetId;
 
                 // Created Date
                 if (asset.createdAt) {
@@ -502,7 +527,100 @@ async function loadAssets() {
             });
 
             editBtn.addEventListener("click", () => {
-                console.log("Edit", asset.assetId);
+
+                currentEditDocId = assetDocId;
+
+                editPreview.src = asset.image || "";
+
+                editName.value = asset.name || "";
+                editAssetId.value = asset.assetId || "";
+                editCategory.value = asset.category || "";
+                editDepartment.value = asset.department || "";
+                editLocation.value = asset.location || "";
+                editStatus.value = asset.status || "";
+                editDescription.value = asset.description || "";
+
+                edit_asset_modal.classList.add("show");
+
+            });
+            editClose.addEventListener("click", () => {
+                edit_asset_modal.classList.remove("show");
+                // clear the current edit id and reset the form to avoid stale state
+                currentEditDocId = null;
+                editForm.reset();
+            });
+
+            editCancel.addEventListener("click", () => {
+                edit_asset_modal.classList.remove("show");
+                currentEditDocId = null;
+                editForm.reset();
+            });
+
+            editImage.addEventListener("change", () => {
+
+                const file = editImage.files[0];
+
+                if (!file) return;
+
+                const reader = new FileReader();
+
+                reader.onload = () => {
+                    editPreview.src = reader.result;
+                };
+
+                reader.readAsDataURL(file);
+
+            });
+
+            // Save btn
+
+            editForm.addEventListener("submit", async (e) => {
+
+                e.preventDefault();
+
+                loader();
+
+                try {
+
+                    let imageURL = editPreview.src;
+
+                    if (editImage.files[0]) {
+                        imageURL = await img_upload(editImage.files[0]);
+                    }
+
+                    await updateDoc(doc(db, "assets", currentEditDocId), {
+
+                        name: editName.value.trim(),
+                        assetId: editAssetId.value.trim(),
+                        category: editCategory.value,
+                        department: editDepartment.value,
+                        location: editLocation.value.trim(),
+                        status: editStatus.value,
+                        description: editDescription.value.trim(),
+                        image: imageURL
+
+                    });
+
+                    const pop = box("Asset Updated Successfully!", "success");
+                    closeBox(pop, 1500);
+
+                    edit_asset_modal.classList.remove("show");
+
+                    await loadAssets();
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    const pop = box(error.message, "error");
+                    closeBox(pop, 2000);
+
+                } finally {
+
+                    removeLoader();
+
+                }
+
             });
 
             // Delete now actually deletes from Firestore, with its own loader
@@ -600,3 +718,6 @@ copy_link.addEventListener("click", async () => {
     }
 
 });
+
+// Edit input
+
