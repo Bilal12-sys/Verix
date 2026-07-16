@@ -1,5 +1,5 @@
 // Import from Firebase.js
-import { auth, db, googleProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, doc, setDoc, onAuthStateChanged ,  GithubAuthProvider, githubProvider  } from "./config/firebase.js";
+import { auth, db, googleProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, doc, setDoc, onAuthStateChanged ,  GithubAuthProvider, githubProvider , getDoc  } from "./config/firebase.js";
 
 // cards
 const cardL = document.getElementById("card");
@@ -72,17 +72,9 @@ function show_hide(input, button) {
     }
 }
 
-if (eye_btn && Login_pas) {
-    eye_btn.addEventListener("click", () => show_hide(Login_pas, eye_btn));
-}
-
-if (eye_btn2 && Sign_pas) {
-    eye_btn2.addEventListener("click", () => show_hide(Sign_pas, eye_btn2));
-}
-
-if (eye_btn3 && Sign_Cpas) {
-    eye_btn3.addEventListener("click", () => show_hide(Sign_Cpas, eye_btn3));
-}
+if (eye_btn && Login_pas) { eye_btn.addEventListener("click", () => show_hide(Login_pas, eye_btn));}
+if (eye_btn2 && Sign_pas) {eye_btn2.addEventListener("click", () => show_hide(Sign_pas, eye_btn2));}
+if (eye_btn3 && Sign_Cpas) {eye_btn3.addEventListener("click", () => show_hide(Sign_Cpas, eye_btn3));}
 
 function setLoading(btn, isLoading) {
     if (isLoading) {
@@ -199,7 +191,8 @@ googleBtn.addEventListener("click", async () => {
                 name: user.displayName,
                 email: user.email,
                 photo: user.photoURL,
-                provider: "google"
+                provider: "google",
+                  role: "Reporter"
             },
             { merge: true }
         );
@@ -208,7 +201,7 @@ googleBtn.addEventListener("click", async () => {
         closeBox(pop, 1200);
 
         setTimeout(() => {
-            location.href = "dashboard.html";
+            location.href = "Reporter.html";
         }, 1200);
     } catch (error) {
         const pop = box(error.message, "error");
@@ -229,7 +222,8 @@ githubBtn.addEventListener("click", async () => {
                 name: user.displayName,
                 email: user.email,
                 photo: user.photoURL,
-                provider: "github"
+                provider: "github",
+                  role: "Reporter"
             },
             { merge: true }
         );
@@ -238,7 +232,7 @@ githubBtn.addEventListener("click", async () => {
         closeBox(pop, 1200);
 
         setTimeout(() => {
-            location.href = "Dashboard.html";
+            location.href = "Reporter.html";
         }, 1200);
 
     } catch (error) {
@@ -247,6 +241,7 @@ githubBtn.addEventListener("click", async () => {
         console.error(error);
     }
 });
+
 
 // Sign Up Setup
 signup.addEventListener("submit", async (e) => {
@@ -302,6 +297,7 @@ signup.addEventListener("submit", async (e) => {
             name: Sname,
             email: Semail,
             uid: user.uid,
+            role: "Reporter"
         });
 
         const pop = box("Account created successfully.", "success");
@@ -315,7 +311,10 @@ signup.addEventListener("submit", async (e) => {
         Sign_pas.value = "";
         Sign_Cpas.value = "";
 
-        ShowLogin();
+
+        ShowLogin()
+        
+
     } catch (error) {
         if (error.code === "auth/email-already-in-use") {
             fieldError(Sign_email, "This email is already registered.");
@@ -331,7 +330,6 @@ signup.addEventListener("submit", async (e) => {
         setLoading(Sign_btn, false);
     }
 });
-
 // Login Setup
 login.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -361,14 +359,56 @@ login.addEventListener("submit", async (e) => {
     setLoading(Login_btn, true);
 
     try {
-        await signInWithEmailAndPassword(auth, Lemail, lpas);
+        // Login User
+        const userCredential = await signInWithEmailAndPassword(
+            auth,
+            Lemail,
+            lpas
+        );
 
-        const pop = box("Login successful.", "success");
-        closeBox(pop, 1000);
+        const user = userCredential.user;
 
-        setTimeout(() => {
-            window.location.href = "dashboard.html";
-        }, 1000);
+        // Get Firestore User Data
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const userData = docSnap.data();
+
+            console.log("User Data:", userData);
+            console.log("Role:", userData.role);
+
+            // Success Popup
+            const pop = box("Login successful.", "success");
+            closeBox(pop, 1000);
+
+            // Redirect Based on Role
+            setTimeout(() => {
+                switch (userData.role) {
+                    case "Admin":
+                        window.location.href = "dashboard.html";
+                        break;
+
+                    case "Technician":
+                        window.location.href = "tecnician.html";
+                        break;
+
+                    case "Reporter":
+                    default:
+                        window.location.href = "Reporter.html";
+                        break;
+                }
+            }, 1000);
+
+        } else {
+            const pop = box("User record not found.", "error");
+            closeBox(pop, 1800);
+        }
+
+
+
+        
+
     } catch (error) {
         if (error.code === "auth/user-not-found") {
             fieldError(Login_email, "No account found with this email.");
@@ -390,17 +430,32 @@ login.addEventListener("submit", async (e) => {
     }
 });
 
+
+
+
+
+
+
+
+
+
 // Mousee Hover Animation
 document.addEventListener('mousemove', e => {
     document.documentElement.style.setProperty('--mx', e.clientX + 'px');
     document.documentElement.style.setProperty('--my', e.clientY + 'px');
 });
 
-// Auto Login Function
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        window.location.href = "Dashboard.html";
-    } else {
-        console.log("No user signed in");
-    }
-});
+// // Auto Login Function
+// onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//         setTimeout(() => {
+//             window.location.href = "dashboard.html";
+//         }, 1000);
+//     } else {
+//         console.log("No user signed in");
+//     }
+// });
+
+
+
+
