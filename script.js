@@ -395,7 +395,7 @@ login.addEventListener("submit", async (e) => {
 
                     case "Reporter":
                     default:
-                        window.location.href = "Reporter.html";
+                        window.location.href = "Dashboard.html";
                         break;
                 }
             }, 1000);
