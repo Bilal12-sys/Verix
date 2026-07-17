@@ -3,10 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assets</title>
+    <title>Verix | Asset Details</title>
     <link rel="shortcut icon" href="images/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="public.css">
 </head>
 <body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="images/Logo.png" alt="Verix Logo">
+            <h1>Verix</h1>
+        </div>
+
+        <div class="asset">
+        <h2>Assets</h2>
+
+        </div>
+
+
+        <div class="btns">
+            <span  id="Dashboard_btn">Dashboard</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="asset-card">
+
+            <div class="asset-image">
+                <img src="" id="assetImage" alt="Asset Image">
+            </div>
+
+            <div class="asset-content">
+
+                <div class="title-row">
+                    <h2 id="assetName">Loading...</h2>
+                </div>
+
+                <div class="details">
+
+                    <div class="detail">
+                        <span>Asset ID</span>
+                        <p id="assetId">-</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>Category</span>
+                        <p id="assetCategory">-</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>Brand</span>
+                        <p id="assetBrand">-</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>Model</span>
+                        <p id="assetModel">-</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>Location</span>
+                        <p id="assetLocation">-</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>Assigned To</span>
+                        <p id="assetAssigned">-</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>Purchase Date</span>
+                        <p id="assetPurchase">-</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>Warranty</span>
+                        <p id="assetWarranty">-</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="description-card">
+            <h3>Description</h3>
+            <p id="assetDescription"></p>
+        </section>
+
+        <section class="history-card">
+            <h3>Maintenance History</h3>
+            <div id="historyList"></div>
+        </section>
+
+        <section class="issue-card">
+            <h3>Current Issues</h3>
+            <div id="issueList"></div>
+        </section>
+       
+          <div class="mainform">
+          <section class="report-form-card">
+
+            <h3>Report an Issue</h3>
+
+            <form id="reportForm">
+
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" id="reportName" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="reportEmail" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Issue Title</label>
+                    <input type="text" id="reportTitle" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Description</label>
+                    <textarea id="reportDescription" rows="6" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Upload Image</label>
+                    <input type="file" id="reportImage" accept="image/*">
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Submit Report
+                </button>
+
+            </form>
+
+        </section>
+        </div>
+
+    </main>
+
+
+
     
+    <script type="module" src="public.js"></script>
+
 </body>
 </html>

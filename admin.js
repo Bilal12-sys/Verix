@@ -9,6 +9,7 @@ import {
     doc
 } from "./config/firebase.js";
 
+// popup box
 function box(text, type = "info") {
     const box_parent = document.createElement("div");
     const popup = document.createElement("div");
@@ -26,13 +27,15 @@ function box(text, type = "info") {
     return box_parent;
 }
 
-// ===============================
-// Loader (fixed)
-// - loader() now removes any stale loader first, so calling it
-//   twice in a row can never leave two loaders stacked in the DOM.
-// - removeLoader() actually removes the node instead of just hiding it,
-//   and is now safe to call even if no loader exists (no more throw).
-// ===============================
+// close popup box
+function closeBox(pop, delay = 1500) {
+    setTimeout(() => {
+        pop.classList.add("pop_out");
+        setTimeout(() => pop.remove(), 300);
+    }, delay);
+}
+
+// loader
 function loader() {
     // clean up any leftover loader before creating a new one
     const existing = document.querySelector(".loader");
@@ -45,6 +48,7 @@ function loader() {
     document.body.appendChild(loaderEl);
 }
 
+// remove loader
 function removeLoader() {
     const loaderEl = document.querySelector(".loader");
     if (!loaderEl) return; // nothing to remove, avoid throwing
@@ -53,12 +57,6 @@ function removeLoader() {
     loaderEl.remove()
 }
 
-function closeBox(pop, delay = 1500) {
-    setTimeout(() => {
-        pop.classList.add("pop_out");
-        setTimeout(() => pop.remove(), 300);
-    }, delay);
-}
 
 // ===============================
 // Element References
@@ -211,16 +209,20 @@ async function img_upload(file) {
     try {
         data = await response.json();
     } catch {
-        throw new Error("Unexpected response from image upload service.");
+         const pop = box("Unexpected response from image upload service.", "error");
+        closeBox(pop, 2000);
+
     }
 
     if (!response.ok) {
         const message = data?.error?.message || `Image upload failed (status ${response.status}).`;
-        throw new Error(message);
+        const pop = box(message, "error");
+        closeBox(pop, 2000);
     }
 
     if (!data.secure_url) {
-        throw new Error("Image upload succeeded but no URL was returned.");
+         const pop = box("Image upload succeeded but no URL was returned.", "error");
+        closeBox(pop, 2000);
     }
 
     return data.secure_url;
@@ -310,9 +312,9 @@ form.addEventListener("submit", async (e) => {
 
     loader();
 
-    const publicURL = `https://yourdomain.com/asset.html?id=${fields.Asset_id}`;
+   const publicURL = `https://verix-app.netlify.app/public.html?id=${fields.Asset_id}`;
 
-    const qrImage = await generateQR(publicURL);
+const qrImage = await generateQR(publicURL);
 
     try {
         let imageURL = "";
@@ -342,7 +344,6 @@ form.addEventListener("submit", async (e) => {
 
         assest_model.classList.remove("show");
 
-        // refresh the list so the new asset shows up immediately
         await loadAssets();
 
     } catch (error) {
@@ -430,13 +431,7 @@ Asset_btn.addEventListener('click', () => {
 // Asset Container
 const Asset_Boxes = document.querySelector(".Asset_boxes");
 
-// =========================
-// Load All Assets (fixed)
-// - loader() is called once before the fetch, removeLoader() once after
-//   ALL cards are built. Previously removeLoader() was called inside the
-//   forEach on every card, which broke after the first card and could
-//   throw on the rest.
-// =========================
+// loadAssets
 async function loadAssets() {
     loader();
     try {
@@ -496,7 +491,7 @@ async function loadAssets() {
                 </div>
             `;
 
-            // Select buttons from THIS card
+            // Select buttons for Edit , view , Delete
             const viewBtn = card.querySelector(".Asset_box_view");
             const editBtn = card.querySelector(".Asset_box_edit");
             const deleteBtn = card.querySelector(".Asset_box_delete");
@@ -607,7 +602,7 @@ async function loadAssets() {
 
                     edit_asset_modal.classList.remove("show");
 
-                    await loadAssets();
+                    // await loadAssets();
 
                 } catch (error) {
 
@@ -638,7 +633,7 @@ async function loadAssets() {
 
                     card.remove(); // remove just this card, no need to reload everything
 
-                    const pop = box("Asset Deleted", "success");
+                    const pop = box("Asset Deleted", "info");
                     closeBox(pop, 1200);
                 } catch (error) {
                     console.error("Error Deleting Asset:", error);
@@ -720,5 +715,4 @@ copy_link.addEventListener("click", async () => {
 
 });
 
-// Edit input
 
