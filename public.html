@@ -7,7 +7,25 @@
     <link rel="shortcut icon" href="images/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="public.css">
 </head>
-<body>
+    <aside class="sidebar" id="public_sidebar">
+        <div class="sidebar-top">
+            <img src="images/Logo.png" alt="Verix" class="sidebar-logo">
+            <h3>Verix</h3>
+        </div>
+        <nav class="sidebar-nav">
+            <button class="nav-item active" id="public_nav_dashboard">Dashboard</button>
+            <button class="nav-item" id="public_nav_vero">Vero</button>
+            <button class="nav-item" id="public_nav_history">History</button>
+        </nav>
+
+        <div class="sidebar-help">
+            <div class="help-card">
+                <h4>Need Help?</h4>
+                <p>Ask Verix AI anything about your asset.</p>
+                <button class="chat-btn" id="public_chat_vero">Chat with Vero →</button>
+            </div>
+        </div>
+    </aside>
 
     <header class="header">
         <div class="logo">
@@ -15,140 +33,101 @@
             <h1>Verix</h1>
         </div>
 
-        <div class="asset">
-        <h2>Assets</h2>
-
-        </div>
-
-
         <div class="btns">
-            <span  id="Dashboard_btn">Dashboard</span>
+            <span id="public_Dashboard_btn">Dashboard</span>
+            <span id="public_scan_btn">Scan Another</span>
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="public_main">
 
-        <section class="asset-card">
+        <section class="page-header">
+            <h2 id="public_title">Asset Details</h2>
+            <p class="muted">This is a public asset page. Anyone can view this information.</p>
+        </section>
 
-            <div class="asset-image">
-                <img src="" id="assetImage" alt="Asset Image">
+        <section class="asset-card" id="public_asset_card">
+            <div class="left-col">
+                <div class="asset-image gallery" id="public_asset_image_wrap">
+                    <img src="images/ac-main.jpg" id="public_asset_image" alt="Asset Image">
+                    <span class="status badge" id="public_status">Active</span>
+                </div>
+
+                <div class="thumbs" id="public_thumbs">
+                    <button class="thumb selected"><img src="images/ac-thumb-1.jpg" alt="thumb"></button>
+                    <button class="thumb"><img src="images/ac-thumb-2.jpg" alt="thumb"></button>
+                    <button class="thumb"><img src="images/ac-thumb-3.jpg" alt="thumb"></button>
+                    <button class="thumb"><img src="images/ac-thumb-4.jpg" alt="thumb"></button>
+                </div>
             </div>
 
-            <div class="asset-content">
-
-                <div class="title-row">
-                    <h2 id="assetName">Loading...</h2>
+            <div class="right-col" id="public_right_panel">
+                <div class="asset-info">
+                    <h3 id="public_asset_name">Split Air Conditioner</h3>
+                    <div class="asset-id" id="public_asset_ref">AC-2024-001</div>
                 </div>
 
-                <div class="details">
-
-                    <div class="detail">
-                        <span>Asset ID</span>
-                        <p id="assetId">-</p>
+                <div class="details-panel">
+                    <div class="details-col">
+                        <div class="detail-row"><span class="label">Category</span><strong id="public_category">HVAC</strong></div>
+                        <div class="detail-row"><span class="label">Location</span><strong id="public_location">Main Building - Floor 2</strong></div>
+                        <div class="detail-row"><span class="label">Brand</span><strong id="public_brand">Daikin</strong></div>
+                        <div class="detail-row"><span class="label">Model</span><strong id="public_model">FTKM50SVM</strong></div>
                     </div>
 
-                    <div class="detail">
-                        <span>Category</span>
-                        <p id="assetCategory">-</p>
+                    <div class="details-col">
+                        <div class="detail-row"><span class="label">Serial Number</span><strong id="public_serial">DAIK123456789</strong></div>
+                        <div class="detail-row"><span class="label">Installed On</span><strong id="public_installed">15 Jan 2024</strong></div>
+                        <div class="detail-row"><span class="label">Warranty</span><strong id="public_warranty">1 Year Left</strong></div>
+                        <div class="detail-row"><span class="label">Status</span><strong id="public_status_text">Active</strong></div>
                     </div>
-
-                    <div class="detail">
-                        <span>Brand</span>
-                        <p id="assetBrand">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Model</span>
-                        <p id="assetModel">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Location</span>
-                        <p id="assetLocation">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Assigned To</span>
-                        <p id="assetAssigned">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Purchase Date</span>
-                        <p id="assetPurchase">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Warranty</span>
-                        <p id="assetWarranty">-</p>
-                    </div>
-
                 </div>
 
+                <div class="quick-actions" id="public_quick_actions">
+                    <button class="qa primary" id="public_report_issue">Report an Issue</button>
+                    <button class="qa" id="public_view_qr">View QR Code</button>
+                    <button class="qa" id="public_download_qr">Download QR</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <div class="left-panel">
+                <section class="description-card" id="public_description_card">
+                    <h3>Description</h3>
+                    <p id="public_asset_description">Daikin 1.5 Ton Inverter Split AC used for office cooling in Floor 2.</p>
+                </section>
+
+                <section class="history-card" id="public_history_card">
+                    <h3>Asset Timeline</h3>
+                    <div id="historyList">
+                        <div class="timeline-item">
+                            <h4>15 Jan 2024</h4>
+                            <p>Asset added by Admin</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>15 Jan 2024</h4>
+                            <p>Installed in <strong>Main Building - Floor 2</strong></p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>15 Jan 2024</h4>
+                            <p>Asset is now <span class="status-pill">Active</span></p>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-        </section>
-
-        <section class="description-card">
-            <h3>Description</h3>
-            <p id="assetDescription"></p>
-        </section>
-
-        <section class="history-card">
-            <h3>Maintenance History</h3>
-            <div id="historyList"></div>
-        </section>
-
-        <section class="issue-card">
-            <h3>Current Issues</h3>
-            <div id="issueList"></div>
-        </section>
-       
-          <div class="mainform">
-          <section class="report-form-card">
-
-            <h3>Report an Issue</h3>
-
-            <form id="reportForm">
-
-                <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" id="reportName" required>
+            <aside class="right-panel-cta">
+                <div class="cta-card">
+                    <h4>Found an issue with this asset?</h4>
+                    <p>Help us keep things running smoothly. Report any problem you are facing.</p>
+                    <button class="report-cta" id="public_report_cta">Report an Issue</button>
                 </div>
-
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="reportEmail" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Issue Title</label>
-                    <input type="text" id="reportTitle" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Description</label>
-                    <textarea id="reportDescription" rows="6" required></textarea>
-                </div>
-
-                <div class="input-group">
-                    <label>Upload Image</label>
-                    <input type="file" id="reportImage" accept="image/*">
-                </div>
-
-                <button type="submit" class="submit-btn">
-                    Submit Report
-                </button>
-
-            </form>
-
+            </aside>
         </section>
-        </div>
 
     </main>
 
-
-
-    
     <script type="module" src="public.js"></script>
 
 </body>
