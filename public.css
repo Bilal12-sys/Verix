@@ -1961,13 +1961,13 @@ a{
         transition:.35s;
     }
 
-    aside.open{
-        left:0;
-    }
-
     aside.close{
         left:-290px;
         width:290px;
+    }
+
+    aside.open{
+        left:0;
     }
 
     .Show_Asset{

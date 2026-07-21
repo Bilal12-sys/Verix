@@ -26,7 +26,14 @@ const menuBtn = document.querySelector(".mobile_menu");
 
 if (menuBtn && aside) {
     menuBtn.addEventListener("click", () => {
+        // Toggle the "open" class for mobile sidebar
         aside.classList.toggle("open");
+        
+        // Ensure "close" class doesn't interfere with mobile state
+        // On mobile, "open" class should control visibility
+        if (aside.classList.contains("open")) {
+            aside.classList.remove("close");
+        }
     });
 }
 
