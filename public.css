@@ -127,30 +127,22 @@ body:hover .grid-glow{
        SIDEBAR
 ==========================*/
 
-aside{
-
-    width:290px;
-
-    flex-shrink:0;
-
-    display:flex;
-     /* height: 100vh; */
-    flex-direction:column;
-
-    padding:16px;
-
-    background:rgba(255,255,255,.88);
-
-    backdrop-filter:blur(18px);
-
-    border-right:1px solid var(--border);
-
-    box-shadow:var(--shadow);
-
-    transition:width .35s ease,padding .35s ease;
-
-    overflow:hidden;
-
+aside {
+    width: 300px;
+    background: linear-gradient(135deg, rgba(248,250,255,0.82), rgba(234,242,255,0.72));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0px 0px 10px #1e293b2b;
+    border-right: 1px solid #1e293b58;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 24px;
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(65, 105, 225, .08);
+    transition: width .4s cubic-bezier(.22, 1, .36, 1);
 }
 
 aside.close{
@@ -479,10 +471,9 @@ aside.close .vero_box{
 .vero_box{
 
     margin-top:auto;
-
     flex-shrink:0;
-
     display:flex;
+    align-items: flex-end;
 
     animation:slideUp .6s ease;
 
@@ -491,6 +482,7 @@ aside.close .vero_box{
 .box{
 
     width:100%;
+    height: auto;
 
     padding:18px;
 
@@ -1254,20 +1246,22 @@ aside.close .vero_box{
     color:var(--text2);
     font-size:15px;
     line-height:1.7;
-}
+}/*==========================
+      HISTORY BUTTON
+==========================*/
 
 #History_btn{
-    margin-top:10px;
-    height:52px;
+    height:54px;
     padding:0 28px;
 
-    display:flex;
+    display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:10px;
+    gap:12px;
 
     border:none;
-    border-radius:14px;
+    outline:none;
+    border-radius:16px;
 
     cursor:pointer;
 
@@ -1276,26 +1270,64 @@ aside.close .vero_box{
 
     font-size:15px;
     font-weight:700;
+    letter-spacing:.2px;
 
-    box-shadow:0 15px 30px rgba(65,105,225,.25);
+    box-shadow:
+        0 15px 35px rgba(65,105,225,.25),
+        inset 0 1px 0 rgba(255,255,255,.25);
 
-    transition:.35s;
+    transition:all .35s ease;
+
+    position:relative;
+    overflow:hidden;
+}
+
+#History_btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:60%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.45),
+        transparent
+    );
+    transform:skewX(-25deg);
+    transition:.6s;
+}
+
+#History_btn:hover::before{
+    left:160%;
 }
 
 #History_btn svg{
-    transition:.35s;
+    width:20px;
+    height:20px;
+    transition:.35s ease;
 }
 
 #History_btn:hover{
     transform:translateY(-4px);
-    box-shadow:0 22px 45px rgba(65,105,225,.35);
-    letter-spacing:.3px;
+    box-shadow:
+        0 22px 45px rgba(65,105,225,.35),
+        inset 0 1px 0 rgba(255,255,255,.3);
 }
 
 #History_btn:hover svg{
-    transform:rotate(-15deg) scale(1.1);
+    transform:rotate(-18deg) scale(1.1);
 }
 
+#History_btn:active{
+    transform:translateY(0) scale(.98);
+}
+
+#History_btn:focus-visible{
+    outline:3px solid rgba(65,105,225,.25);
+    outline-offset:4px;
+}
 
 
 
