@@ -5,8 +5,19 @@ const aside = document.querySelector("aside");
 const sidebarToggle = document.getElementById("sidebarToggle");
 
 sidebarToggle.addEventListener("click", () => {
-    aside.classList.toggle("collapsed");
+    aside.classList.toggle("close");
 });
+
+//Mobile sidebar
+
+const mobile_aisede = document.querySelector("aside");
+const menuBtn = document.querySelector(".mobile_menu");
+
+menuBtn.onclick = () => {
+    mobile_aisede.classList.toggle("open");
+};
+
+
 
 // ===============================
 // Grid Glow Effect
@@ -64,3 +75,11 @@ sidebarItems.forEach(item => {
 
     });
 });
+
+const back = document.getElementById("Back_btn");
+
+if (back) {
+    back.addEventListener("click", () => {
+        window.location.href = "Dashboard.html";
+    });
+}
