@@ -1,155 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verix | Asset Details</title>
+    <title>Asset</title>
     <link rel="shortcut icon" href="images/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="public.css">
 </head>
+
 <body>
+    <div class="grid-bg"></div>
+    <div class="grid-glow"></div>
 
-    <header class="header">
-        <div class="logo">
-            <img src="images/Logo.png" alt="Verix Logo">
-            <h1>Verix</h1>
-        </div>
-
-        <div class="asset">
-        <h2>Assets</h2>
-
-        </div>
-
-
-        <div class="btns">
-            <span  id="Dashboard_btn">Dashboard</span>
-        </div>
-    </header>
-
-    <main class="container">
-
-        <section class="asset-card">
-
-            <div class="asset-image">
-                <img src="" id="assetImage" alt="Asset Image">
+    <div class="main">
+        <aside>
+            <div class="logo">
+                <img src="images/Logo.png" alt="logo">
+                <h2>Verix</h2>
+                <div class="mb">
+                    <div class="bar" id="sidebarToggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </div>
+                </div>
             </div>
 
-            <div class="asset-content">
+            <div class="items">
 
-                <div class="title-row">
-                    <h2 id="assetName">Loading...</h2>
+                <span id="Dashboard_btn" class="active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="4" rx="1" />
+                        <rect x="14" y="10" width="7" height="11" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                    <p>Dashboard</p>
+                </span>
+                <span id="Vero_btn">
+                    <img src="images/vero front.png" alt="" srcset="">
+                    <p>Vero</p>
+                </span>
+                <span id="History_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 2h6" />
+                        <rect x="5" y="4" width="14" height="18" rx="2" />
+                        <path d="M9 8h6" />
+                        <circle cx="12" cy="16" r="3" />
+                        <path d="M12 14.5v2l1.5 1" />
+                    </svg>
+                    <p>History</p>
+                </span>
+                <div class="vero_box">
+                    <div class="box">
+                        <div class="both">
+                            <div class="left">
+                                <p>Need Help?</p>
+                                <h3>Ask Vero Ai</h3>
+                                <p class="p">Ask anything about your asset.</p>
+                            </div>
+                            <div class="right">
+                                <img src="images/Vero Ai Standing.png" alt="">
+                            </div>
+                        </div>
+                        <div class="btn">
+                            <button id="Go_Vero">Chat with Vero <svg xmlns="http://www.w3.org/2000/svg" width="22"
+                                    height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14" />
+                                    <path d="m13 6 6 6-6 6" />
+                                </svg></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+
+        <div class="Show_Asset">
+            <div class="Asset_page">
+
+                <div class="page_top">
+                    <div class="page_title">
+                        <h1>Asset Details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
+                        </h1>
+                        <p>This is a public asset page. Anyone can view this information.</p>
+                    </div>
+                    <button class="scan_btn" id="Scan_Another">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1" />
+                            <rect x="14" y="3" width="7" height="7" rx="1" />
+                            <rect x="3" y="14" width="7" height="7" rx="1" />
+                            <path d="M14 14h3v3" />
+                            <path d="M21 21v-3.5" />
+                            <path d="M17.5 21H21" />
+                            <path d="M14 21v-3" />
+                        </svg>
+                        Scan Another
+                    </button>
                 </div>
 
-                <div class="details">
-
-                    <div class="detail">
-                        <span>Asset ID</span>
-                        <p id="assetId">-</p>
+                <div class="Asset_box">
+                    <div class="Asset_left">
+                        <div class="image_wrap">
+                            <span class="status_pill" id="Asset_status_pill">Active</span>
+                            <img id="Asset_main_image" src="images/Dell.jpg" alt="" srcset="">
+                        </div>
+                       
                     </div>
 
-                    <div class="detail">
-                        <span>Category</span>
-                        <p id="assetCategory">-</p>
+                    <div class="Asset_right">
+                        <h2 id="Asset_name">Example</h2>
+                        <div class="bage">
+                            <p id="Asset_Id">AST-001</p>
+                        </div>
+
+                        <div class="Asset_side">
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M21 8l-9-5-9 5 9 5 9-5z" />
+                                    <path d="M3 8v8l9 5 9-5V8" />
+                                    <path d="M12 13v8" />
+                                </svg>
+                                <div class="Caterogery">
+                                    <p>Category</p>
+                                    <h3 id="Asset_caterogery">kkkk</h3>
+                                </div>
+                            </div>
+
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <circle cx="16" cy="8" r="2" />
+                                    <rect x="2" y="2" width="10" height="10" rx="2" />
+                                    <path d="M2 16v2a2 2 0 0 0 2 2h2" />
+                                    <path d="M16 16v2a2 2 0 0 1-2 2h-2" />
+                                </svg>
+                                <div class="Location">
+                                    <p>Serial Number</p>
+                                    <h3 id="Asset_serial">N/A</h3>
+                                </div>
+                            </div>
+
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                <div class="Location">
+                                    <p>Location</p>
+                                    <h3 id="Asset_location"></h3>
+                                </div>
+                            </div>
+
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                                    <path d="M16 2v4" />
+                                    <path d="M8 2v4" />
+                                    <path d="M3 10h18" />
+                                </svg>
+                                <div class="Department">
+                                    <p>Installed On</p>
+                                    <h3 id="Asset_installed">N/A</h3>
+                                </div>
+                            </div>
+
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M12 7v5l3 3" />
+                                </svg>
+                                <div class="Department">
+                                    <p>Brand</p>
+                                    <h3 id="Asset_Department"></h3>
+                                </div>
+                            </div>
+
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M12 8v4l2.5 2.5" />
+                                </svg>
+                                <div class="Status">
+                                    <p>Warranty</p>
+                                    <h3 id="Asset_warranty">N/A</h3>
+                                </div>
+                            </div>
+
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path
+                                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                                </svg>
+                                <div class="Department">
+                                    <p>Model</p>
+                                    <h3 id="Asset_model"></h3>
+                                </div>
+                            </div>
+
+                            <div class="Asset_item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="m9 12 2 2 4-4" />
+                                </svg>
+                                <div class="Status">
+                                    <p>Status</p>
+                                    <h3 id="Asset_status"><span class="status_dot"></span>Active</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="main_d">
+                    <div class="Description_box">
+                        <h3 class="Description">Description</h3>
+                        <p id="Asset_decription">hello world</p>
                     </div>
 
-                    <div class="detail">
-                        <span>Brand</span>
-                        <p id="assetBrand">-</p>
+                   
+                </div>
+
+                <div class="Asset_Timeline_row">
+                    <div class="Asset_Timeline">
+                        <p>Asset Timeline</p>
+                        <div class="see_btn">
+                          <button id="Go_history">See History</button>
+                          </div>
                     </div>
 
-                    <div class="detail">
-                        <span>Model</span>
-                        <p id="assetModel">-</p>
+                    <div class="Report_card">
+                        <div class="Report_icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                <path d="M12 9v4" />
+                                <path d="M12 17h.01" />
+                            </svg>
+                        </div>
+                        <h3>Found an issue with this asset?</h3>
+                        <p>Help us keep things running smoothly. Report any problem you are facing.</p>
+                        <button class="qa_btn qa_primary" id="Report_Issue_btn2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                <path d="M12 9v4" />
+                                <path d="M12 17h.01" />
+                            </svg>
+                            Report an Issue
+                        </button>
                     </div>
+                </div>
 
-                    <div class="detail">
-                        <span>Location</span>
-                        <p id="assetLocation">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Assigned To</span>
-                        <p id="assetAssigned">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Purchase Date</span>
-                        <p id="assetPurchase">-</p>
-                    </div>
-
-                    <div class="detail">
-                        <span>Warranty</span>
-                        <p id="assetWarranty">-</p>
-                    </div>
-
+                <div class="page_footer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        <path d="m9 12 2 2 4-4" />
+                    </svg>
+                    This is a public asset page. This information is visible to everyone.
                 </div>
 
             </div>
-
-        </section>
-
-        <section class="description-card">
-            <h3>Description</h3>
-            <p id="assetDescription"></p>
-        </section>
-
-        <section class="history-card">
-            <h3>Maintenance History</h3>
-            <div id="historyList"></div>
-        </section>
-
-        <section class="issue-card">
-            <h3>Current Issues</h3>
-            <div id="issueList"></div>
-        </section>
-       
-          <div class="mainform">
-          <section class="report-form-card">
-
-            <h3>Report an Issue</h3>
-
-            <form id="reportForm">
-
-                <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" id="reportName" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="reportEmail" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Issue Title</label>
-                    <input type="text" id="reportTitle" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Description</label>
-                    <textarea id="reportDescription" rows="6" required></textarea>
-                </div>
-
-                <div class="input-group">
-                    <label>Upload Image</label>
-                    <input type="file" id="reportImage" accept="image/*">
-                </div>
-
-                <button type="submit" class="submit-btn">
-                    Submit Report
-                </button>
-
-            </form>
-
-        </section>
         </div>
 
-    </main>
-
-
-
-    
-    <script type="module" src="public.js"></script>
+    </div>
 
 </body>
+<script type="module" src="public.js"></script>
+
 </html>

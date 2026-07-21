@@ -3,12 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techician</title>
+    <title>Verix - Technician Dashboard</title>
     <link rel="shortcut icon" href="images/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="technician.css">
+    <!-- Chart.js for the Repair Overview -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <h1>hello Tec</h1>
+
+    <div class="grid-bg"></div>
+    <div class="grid-glow"></div>
+
+    <div class="main">
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+
+            <div class="logo">
+                <img src="images/Logo.png" alt="Logo">
+                <h2>Verix</h2>
+                <div class="bar" id="sidebarToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="items">
+                <span class="active" id="dashboard_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="4" rx="1" />
+                        <rect x="14" y="10" width="7" height="11" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                    <p>Dashboard</p>
+                </span>
+
+                <span id="task_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="16" rx="2" />
+                        <path d="M8 2v4" />
+                        <path d="M16 2v4" />
+                        <path d="M3 10h18" />
+                        <path d="M8 14h3" />
+                        <path d="M8 17h6" />
+                        <path d="M17 15l1.5 1.5L21 14" />
+                    </svg>
+                    <p>Assigned Tasks</p>
+                </span>
+
+                <span id="history_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 8v5l3 2" />
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M20.5 20.5l-2-2" />
+                    </svg>
+                    <p>Repair History</p>
+                </span>
+
+                <span id="profile_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20a8 8 0 0 1 16 0" />
+                    </svg>
+                    <p>Profile</p>
+                </span>
+            </div>
+
+            <div class="logout">
+                <button id="logout_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <p>Logout</p>
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <section class="content">
+
+            <!-- Header -->
+            <header>
+                <div class="heading">
+                    <h1>Technician Dashboard</h1>
+                    <span>Welcome back! Manage your assigned repairs.</span>
+                </div>
+
+                <button class="repair-btn" id="repairBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    <span>Repair Task</span>
+                </button>
+            </header>
+
+            <!-- Cards -->
+            <div class="cards">
+                <div class="card" style="--i: 0">
+                    <h3>Assigned</h3>
+                    <h2 id="assigned_count">12</h2>
+                </div>
+                <div class="card" style="--i: 1">
+                    <h3>In Progress</h3>
+                    <h2 id="progress_count">4</h2>
+                </div>
+                <div class="card" style="--i: 2">
+                    <h3>Completed</h3>
+                    <h2 id="completed_count">38</h2>
+                </div>
+                <div class="card" style="--i: 3">
+                    <h3>High Priority</h3>
+                    <h2 id="priority_count">2</h2>
+                </div>
+            </div>
+
+            <!-- Repair Status Overview (Formerly Analytics) -->
+            <section id="repairs_overview">
+                <div id="repairs_header">
+                    <div id="repairs_title">
+                        <h2 id="repairs_heading">Repair Status Overview</h2>
+                        <p id="repairs_subheading">Monitor the health and progress of all assigned repair tasks.</p>
+                    </div>
+                </div>
+
+                <div id="repairs_body">
+                    <div id="chart_box">
+                        <canvas id="repairStatus_Chart"></canvas>
+                    </div>
+
+                    <div id="status_list">
+                        <!-- Pending Item -->
+                        <div class="status_item pending_item">
+                            <div class="status_left">
+                                <span class="status_dot pending"></span>
+                                <div>
+                                    <h4>Pending</h4>
+                                    <p>Awaiting Action</p>
+                                </div>
+                            </div>
+                            <div class="status_right">
+                                <h3 id="pending_count">12</h3>
+                                <span id="pending_percent">24%</span>
+                            </div>
+                        </div>
+
+                        <!-- In Progress Item -->
+                        <div class="status_item inprogress_item">
+                            <div class="status_left">
+                                <span class="status_dot inprogress"></span>
+                                <div>
+                                    <h4>In Progress</h4>
+                                    <p>Currently Servicing</p>
+                                </div>
+                            </div>
+                            <div class="status_right">
+                                <h3 id="inprogress_count">4</h3>
+                                <span id="inprogress_percent">8%</span>
+                            </div>
+                        </div>
+
+                        <!-- Completed Item -->
+                        <div class="status_item completed_item">
+                            <div class="status_left">
+                                <span class="status_dot completed"></span>
+                                <div>
+                                    <h4>Completed</h4>
+                                    <p>Successfully Fixed</p>
+                                </div>
+                            </div>
+                            <div class="status_right">
+                                <h3 id="completed_status_count">38</h3>
+                                <span id="completed_percent">68%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Repair History -->
+            <section id="history">
+                <div class="table-box">
+                    <div class="section_header">
+                        <h2>Repair History</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset</th>
+                                <th>Issue</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dell Laptop</td>
+                                <td>Broken Screen</td>
+                                <td>18 Jul 2026</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>HP Printer</td>
+                                <td>Paper Jam</td>
+                                <td>17 Jul 2026</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </section>
+    </div>
+
 </body>
 <script type="module" src="tecnician.js"></script>
 </html>

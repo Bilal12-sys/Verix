@@ -41,6 +41,7 @@
                     </svg>
                     <p>Dashboard</p>
                 </span>
+                
                 <span id="Asset_btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -50,7 +51,7 @@
                     </svg>
                     <p>Assets</p>
                 </span>
-                <span>
+                <span id="Issue_btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
@@ -141,7 +142,7 @@
                         </div>
                         <h3>Total Assets</h3>
                     </div>
-                    <h2 data-count="52">0</h2>
+               <h2 id="total_Assets">0</h2>
                 </div>
 
                 <div class="card" style="--i:1">
@@ -156,7 +157,7 @@
                         </div>
                         <h3>Open Issues</h3>
                     </div>
-                    <h2 data-count="12">0</h2>
+                    <h2 id="open_Issues">0</h2>
                 </div>
 
                 <div class="card" style="--i:2">
@@ -170,7 +171,7 @@
                         </div>
                         <h3>Technicians</h3>
                     </div>
-                    <h2 data-count="8">0</h2>
+                 <h2 id="total_Technicians">0</h2>
                 </div>
 
                 <div class="card" style="--i:3">
@@ -183,10 +184,88 @@
                         </div>
                         <h3>Resolved</h3>
                     </div>
-                    <h2 data-count="40">0</h2>
+                    <h2 id="resolved_Issues">0</h2>
                 </div>
 
             </div>
+
+
+           <section id="analytics">
+
+    <div id="analytics_Header">
+
+        <div id="analytics_Title">
+            <h2 id="analytics_Heading">Asset Status Overview</h2>
+            <p id="analytics_SubHeading">Monitor the health and availability of all registered assets.</p>
+        </div>
+
+        
+    </div>
+
+    <div id="analytics_Body">
+
+        <div id="chart_Box">
+            <canvas id="assetStatus_Chart"></canvas>
+        </div>
+
+        <div id="status_List">
+
+            <div id="operational_Item" class="status_Item">
+                <div id="operational_Left" class="status_Left">
+                    <span id="operational_Dot" class="status_Dot operational"></span>
+                    <div>
+                        <h4 id="operational_Title">Working</h4>
+                        <p id="operational_Description">Working Normally</p>
+                    </div>
+                </div>
+
+                <div id="operational_Right" class="status_Right">
+                    <h3 id="operational_Count">-</h3>
+                    <span id="operational_Percent">-</span>
+                </div>
+            </div>
+
+            <div id="maintenance_Item" class="status_Item">
+                <div id="maintenance_Left" class="status_Left">
+                    <span id="maintenance_Dot" class="status_Dot maintenance"></span>
+                    <div>
+                        <h4 id="maintenance_Title">Maintenance</h4>
+                        <p id="maintenance_Description">Currently Servicing</p>
+                    </div>
+                </div>
+
+                <div id="maintenance_Right" class="status_Right">
+                    <h3 id="maintenance_Count">-</h3>
+                    <span id="maintenance_Percent">-</span>
+                </div>
+            </div>
+
+            <div id="broken_Item" class="status_Item">
+                <div id="broken_Left" class="status_Left">
+                    <span id="broken_Dot" class="status_Dot broken"></span>
+                    <div>
+                        <h4 id="broken_Title">Broken</h4>
+                        <p id="broken_Description">Unavailable</p>
+                    </div>
+                </div>
+
+                <div id="broken_Right" class="status_Right">
+                    <h3 id="broken_Count">-</h3>
+                    <span id="broken_Percent">-</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
 
             <div class="table-box">
                 <div class="table-box-header">
@@ -235,7 +314,14 @@
 
                         <div class="assetHeader">
                             <div>
-                                <h2>Add Asset</h2>
+                                <h2><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <path d="M14 2v6h6" />
+                                        <path d="M12 18v-6" />
+                                        <path d="M9 15h6" />
+                                    </svg></h2>
                             </div>
 
                             <div class="assetImage">
@@ -251,7 +337,7 @@
 
                             <div class="ubm">
                                 <label for="Asset_image" class="uploadBtn" id="uploadBtn">
-                                    Upload Photo
+                                    Upload
                                 </label>
                             </div>
 
@@ -333,7 +419,7 @@
         </section>
 
         <!-- Assets section: search, asset cards, Edit Asset modal, and View Asset modal -->
-         
+
         <section id="Asset_Section">
 
             <div class="serches">
@@ -496,13 +582,30 @@
                     </div>
                     <div class="view_footer">
                         <button id="open_public_page">
-                            <span>🌐</span> Open Public Page
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                    <path d="M15 3h6v6" />
+                                    <path d="M10 14L21 3" />
+                                </svg></span> Open Public Page
                         </button>
                         <button id="copy_link">
-                            <span>🔗</span> Copy Link
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg></span> Copy Link
                         </button>
                         <button id="download_qr">
-                            <span>⬇</span> Download QR
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 3v12" />
+                                    <path d="M7 10l5 5 5-5" />
+                                    <path d="M5 21h14" />
+                                </svg></span> Download QR
                         </button>
                     </div>
                 </div>
@@ -510,13 +613,214 @@
 
         </section>
 
+
+        <!-- ===========================
+     ASSET ISSUE SECTION
+=========================== -->
+<section id="Asset_Issue_Section">
+
+    <header id="issue_header">
+        <div class="heading">
+            <h1>
+                Reported <strong>Issues</strong>
+            </h1>
+            <span class="subtext">Review all issue reports submitted by users.</span>
+        </div>
+    </header>
+
+    <!-- Search + status filters -->
+    <div id="issue_toolbar">
+        <div class="issue_search">
+            <input type="text" id="issue_search_input" placeholder="Search by asset name, ID, or reporter...">
+        </div>
+
+        <div class="issue_filters">
+            <button class="issue_filter_btn active" data-filter="all" type="button">All</button>
+            <button class="issue_filter_btn" data-filter="pending" type="button">Pending</button>
+            <button class="issue_filter_btn" data-filter="in-progress" type="button">In Progress</button>
+            <button class="issue_filter_btn" data-filter="resolved" type="button">Resolved</button>
+        </div>
     </div>
+
+    <!-- Issue Cards Container (populated by JS) -->
+    <div id="issue_container" class="issue_container">
+        <!-- issue cards get appended here -->
+    </div>
+
+    <!-- Empty state -->
+    <div id="issue_empty" class="issue_empty">
+        <div class="issue_empty_icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+        </div>
+        <p>No issue reports yet</p>
+        <span>Reports submitted from the public asset page will show up here.</span>
+    </div>
+
+</section>
+
+
+<template id="issue_card_template">
+    <div class="issue_card">
+
+        <div class="issue_top">
+
+            <div class="issue_profile">
+                <div class="issue_avatar">
+                    <img class="issue_user_image" src="" alt="">
+                </div>
+
+                <div class="issue_user">
+                    <h3 class="issue_reporter_name"></h3>
+                    <p class="issue_reporter_email"></p>
+                </div>
+            </div>
+
+            <span class="issue_status"></span>
+
+        </div>
+
+        <div class="issue_body">
+
+            <div class="issue_row">
+                <span class="issue_label">Asset Name</span>
+                <p class="issue_asset_name"></p>
+            </div>
+
+            <div class="issue_row">
+                <span class="issue_label">Asset ID</span>
+                <p class="issue_asset_id"></p>
+            </div>
+
+            <div class="issue_row">
+                <span class="issue_label">Reason</span>
+                <p class="issue_reason"></p>
+            </div>
+
+            <div class="issue_row">
+                <span class="issue_label">Priority</span>
+                <p class="issue_priority"></p>
+            </div>
+
+            <div class="issue_row issue_row_full">
+                <span class="issue_label">Description</span>
+                <p class="issue_description"></p>
+            </div>
+
+            <div class="issue_row">
+                <span class="issue_label">Report Date</span>
+                <p class="issue_date"></p>
+            </div>
+
+        </div>
+
+        <div class="issue_footer">
+            <button class="issue_view_btn" type="button">
+                View Report
+            </button>
+            <button class="issue_resolve_btn" type="button" title="Mark as resolved">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+            </button>
+        </div>
+
+    </div>
+</template>
+
+<div class="issue_detail" id="issue_detail">
+    <div class="issue_detail_box">
+
+        <span class="issue_detail_close" id="issue_detail_close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </span>
+
+        <div class="issue_detail_header">
+            <div class="issue_detail_avatar">
+                <img id="detail_user_image" src="" alt="">
+            </div>
+            <div class="issue_detail_title">
+                <h2 id="detail_reporter_name"></h2>
+                <p id="detail_reporter_email"></p>
+            </div>
+        </div>
+
+        <div class="issue_detail_body">
+
+            <div class="issue_detail_grid">
+                <div class="issue_detail_item">
+                    <strong>Asset Name</strong>
+                    <span id="detail_asset_name"></span>
+                </div>
+                <div class="issue_detail_item">
+                    <strong>Asset ID</strong>
+                    <span id="detail_asset_id"></span>
+                </div>
+                <div class="issue_detail_item">
+                    <strong>Reason</strong>
+                    <span id="detail_reason"></span>
+                </div>
+                <div class="issue_detail_item">
+                    <strong>Priority</strong>
+                    <span id="detail_priority"></span>
+                </div>
+                <div class="issue_detail_item">
+                    <strong>Report Date</strong>
+                    <span id="detail_date"></span>
+                </div>
+                <div class="issue_detail_item">
+                    <strong>Status</strong>
+                    <span id="detail_status"></span>
+                </div>
+            </div>
+
+            <div class="issue_detail_desc">
+                <h3>Description</h3>
+                <p id="detail_description"></p>
+            </div>
+
+        </div>
+
+        <div class="issue_detail_footer">
+            <select id="detail_status_select">
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="resolved">Resolved</option>
+            </select>
+
+            <button class="issue_detail_delete" id="issue_detail_delete" type="button" title="Delete report">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                    <path d="M10 11v6" />
+                    <path d="M14 11v6" />
+                    <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                </svg>
+            </button>
+        </div>
+
+    </div>
+</div>
+    </div>
+
+
 
 </body>
 
-<!-- App scripts: dashboard logic, admin logic, and QR code generator library -->
 <script type="module" src="dashboard.js"></script>
 <script type="module" src="admin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 </html>
