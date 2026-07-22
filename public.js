@@ -9,6 +9,7 @@ import {
     where,
     limit,
     getDocs,
+    auth,
     addDoc,
     serverTimestamp
 } from "./config/firebase.js";
@@ -659,7 +660,7 @@ function Report() {
 
             // Save report to Firebase with Cloudinary image URL
             await addDoc(collection(db, "reports"), {
-                reporterUid: auth.currentUser ? auth.currentUser.uid : null,
+               Reporter_Uid: auth.currentUser?.uid || null,
                 assetId: assetId || "",
                 Reporter_name: report_name.value.trim(),
                  Reporter_email: report_email.value.trim() || "",
