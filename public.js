@@ -1,3 +1,7 @@
+
+// ==========================================================================================
+// FIREBASE IMPORTS
+// ==========================================================================================
 import {
     db,
     collection,
@@ -5,69 +9,56 @@ import {
     where,
     limit,
     getDocs,
-    addDoc
+    addDoc,
+    serverTimestamp
 } from "./config/firebase.js";
 
-// ==========================
-// Desktop Sidebar
-// ==========================
+// ==========================================================================================
+// SIDEBAR FUNCTIONALITY - DESKTOP
+// Handles sidebar toggle for desktop view
+// ==========================================================================================
 const aside = document.querySelector("aside");
 const sidebarToggle = document.getElementById("sidebarToggle");
 const menuBtn = document.querySelector(".mobile_menu");
 
-
-
 if (sidebarToggle && aside) {
-
     sidebarToggle.addEventListener("click", () => {
         aside.classList.add("open");
         aside.classList.remove("close");
-
     });
 
     menuBtn.addEventListener("click", () => {
-
         if (window.innerWidth <= 1000) {
             aside.classList.remove("open");
-
         } else {
             aside.classList.toggle("close");
         }
-
     });
-
-
 }
 
-// ==========================
-// Mobile sidebar
-// ==========================
-
-
+// ==========================================================================================
+// SIDEBAR FUNCTIONALITY - MOBILE
+// Handles sidebar toggle for mobile view
+// ==========================================================================================
 if (menuBtn && aside) {
-
     menuBtn.addEventListener("click", () => {
         aside.classList.add("open");
         aside.classList.remove("close");
-
     });
 
     sidebarToggle.addEventListener("click", () => {
-
         if (window.innerWidth <= 700) {
             aside.classList.remove("open");
-
         } else {
             aside.classList.toggle("close");
         }
-
     });
-
-
 }
-// ==========================
-// Background Animation
-// ==========================
+
+// ==========================================================================================
+// BACKGROUND GLOW ANIMATION
+// Creates a glowing effect that follows the mouse cursor
+// ==========================================================================================
 const glow = document.querySelector(".grid-glow");
 
 if (glow) {
@@ -82,9 +73,10 @@ if (glow) {
     });
 }
 
-// ==========================
-// Sidebar Active Item + Tooltips
-// ==========================
+// ==========================================================================================
+// SIDEBAR MENU ITEMS - ACTIVE STATE & TOOLTIPS
+// Handles active state for sidebar menu items and shows tooltips when collapsed
+// ==========================================================================================
 const menuItems = document.querySelectorAll(".items > span");
 
 menuItems.forEach(item => {
@@ -101,9 +93,10 @@ menuItems.forEach(item => {
     });
 });
 
-// ==========================
-// Back Button
-// ==========================
+// ==========================================================================================
+// BACK BUTTON
+// Returns user to Dashboard page
+// ==========================================================================================
 const backBtn = document.getElementById("Back_btn");
 
 if (backBtn) {
@@ -112,9 +105,10 @@ if (backBtn) {
     });
 }
 
-// ==========================
-// Asset Detail Elements
-// ==========================
+// ==========================================================================================
+// ASSET DETAIL DOM ELEMENTS
+// All elements that display asset information on the page
+// ==========================================================================================
 const Asset_main_image = document.getElementById("Asset_main_image");
 const Asset_name = document.getElementById("Asset_name");
 const Asset_Id = document.getElementById("Asset_Id");
@@ -128,6 +122,10 @@ const Asset_model = document.getElementById("Asset_model");
 const Asset_status = document.getElementById("Asset_status");
 const Asset_decription = document.getElementById("Asset_decription");
 
+// ==========================================================================================
+// ERROR POPUP NOTIFICATION
+// Displays error messages to the user with auto-dismiss
+// ==========================================================================================
 function showPublicError(message) {
     const pop = document.createElement("div");
     const popup = document.createElement("div");
@@ -148,16 +146,25 @@ function showPublicError(message) {
     }, 3000);
 }
 
-// ==========================
-// Generic info / status popup (used for Report cancel/submit)
-// ==========================
+// ==========================================================================================
+// INFO/STATUS POPUP NOTIFICATION
+// Displays info, success, or error messages with different styles
+// ==========================================================================================
 function showInfoPopup(message, type = "info") {
     const pop = document.createElement("div");
     const popup = document.createElement("div");
     const inside_text = document.createElement("h3");
 
     pop.classList.add("box_p");
-    popup.classList.add("pop_box", type === "error" ? "pop_error" : "pop_info");
+    
+    if (type === "error") {
+        popup.classList.add("pop_box", "pop_error");
+    } else if (type === "success") {
+        popup.classList.add("pop_box", "pop_success");
+    } else {
+        popup.classList.add("pop_box", "pop_info");
+    }
+    
     inside_text.classList.add("box_text");
     inside_text.textContent = message;
 
@@ -171,8 +178,10 @@ function showInfoPopup(message, type = "info") {
     }, 3000);
 }
 
-showPublicError("hi")
-
+// ==========================================================================================
+// POPULATE ASSET DETAILS
+// Fills all asset detail elements with data from Firebase
+// ==========================================================================================
 function populatePublicAsset(asset) {
     if (Asset_main_image) Asset_main_image.src = asset.image || "No image provided";
     if (Asset_name) Asset_name.textContent = asset.name || "Unknown Asset";
@@ -192,6 +201,10 @@ function populatePublicAsset(asset) {
     }
 }
 
+// ==========================================================================================
+// LOAD ASSET FROM FIREBASE
+// Fetches asset data from Firestore using assetId from URL parameter
+// ==========================================================================================
 async function loadPublicAsset() {
     const urlParams = new URLSearchParams(window.location.search);
     const assetId = urlParams.get("id");
@@ -223,23 +236,57 @@ async function loadPublicAsset() {
     }
 }
 
+// Initialize asset loading
 loadPublicAsset();
 
-// ==========================
-// Report btn and form
-// (built entirely with document.createElement — no innerHTML)
-// ==========================
-function Report() {
+// ==========================================================================================
+// CLOUDINARY IMAGE UPLOAD
+// Uploads image to Cloudinary and returns the secure URL
+// ==========================================================================================
+async function uploadImageToCloudinary(file) {
+    if (!file) return "";
 
-    // ---------- Overlay ----------
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "Verix_Asset_images");
+
+    try {
+        const response = await fetch(
+            "https://api.cloudinary.com/v1_1/dai3lqoez/image/upload",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Upload failed with status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.secure_url;
+
+    } catch (error) {
+        console.error("Cloudinary upload error:", error);
+        throw error;
+    }
+}
+
+// ==========================================================================================
+// REPORT FORM - MAIN FUNCTION
+// Creates and displays the report issue form popup with all fields and validation
+// ==========================================================================================
+function Report() {
+    
+    // ---------- CREATE OVERLAY ----------
     const overlay = document.createElement("div");
     overlay.className = "report_overlay";
 
-    // ---------- Popup ----------
+    // ---------- CREATE POPUP CONTAINER ----------
     const popup = document.createElement("div");
     popup.className = "report_popup";
 
-    // ---------- Header ----------
+    // ---------- CREATE HEADER ----------
     const report_header = document.createElement("div");
     report_header.className = "report_header";
 
@@ -262,14 +309,17 @@ function Report() {
     report_header.appendChild(header_text_wrap);
     report_header.appendChild(report_close);
 
-    // ---------- Body ----------
+    // ---------- CREATE BODY ----------
     const report_body = document.createElement("div");
     report_body.className = "report_body";
 
     const report_grid = document.createElement("div");
     report_grid.className = "report_grid";
 
-    // ---- helper to build a labeled group with an error slot ----
+    // ==========================================================================================
+    // HELPER FUNCTION - CREATE FORM GROUP
+    // Creates a form field with label and error message placeholder
+    // ==========================================================================================
     function createGroup(labelText, fieldEl, extraClass = "") {
         const group = document.createElement("div");
         group.className = "report_group" + (extraClass ? " " + extraClass : "");
@@ -288,21 +338,21 @@ function Report() {
         return { group, error };
     }
 
-    // ---- Full Name ----
+    // ---------- FULL NAME FIELD ----------
     const report_name = document.createElement("input");
     report_name.type = "text";
     report_name.id = "report_name";
     report_name.placeholder = "Enter your full name";
     const nameField = createGroup("Full Name", report_name);
 
-    // ---- Email (optional) ----
+    // ---------- EMAIL FIELD (OPTIONAL) ----------
     const report_email = document.createElement("input");
     report_email.type = "email";
     report_email.id = "report_email";
     report_email.placeholder = "example@email.com";
     const emailField = createGroup("Email (Optional)", report_email);
 
-    // ---- Issue Type ----
+    // ---------- ISSUE TYPE DROPDOWN ----------
     const report_type = document.createElement("select");
     report_type.id = "report_type";
 
@@ -324,7 +374,7 @@ function Report() {
     });
     const typeField = createGroup("Issue Type", report_type);
 
-    // ---- Priority ----
+    // ---------- PRIORITY RADIO BUTTONS ----------
     const priority_box = document.createElement("div");
     priority_box.className = "priority_box";
 
@@ -351,14 +401,14 @@ function Report() {
 
     const priorityField = createGroup("Priority", priority_box);
 
-    // ---- Description ----
+    // ---------- DESCRIPTION TEXTAREA ----------
     const report_description = document.createElement("textarea");
     report_description.id = "report_description";
     report_description.rows = 6;
     report_description.placeholder = "Explain what happened with this asset...";
     const descField = createGroup("Describe the Issue", report_description, "full");
 
-    // ---- Image Upload ----
+    // ---------- IMAGE UPLOAD FIELD ----------
     const upload_group = document.createElement("div");
     upload_group.className = "report_group full";
 
@@ -378,6 +428,7 @@ function Report() {
     const upload_content = document.createElement("div");
     upload_content.className = "upload_content";
 
+    // Create SVG upload icon
     const uploadSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     uploadSvg.setAttribute("width", "56");
     uploadSvg.setAttribute("height", "56");
@@ -427,7 +478,7 @@ function Report() {
     upload_group.appendChild(upload_label);
     upload_group.appendChild(uploadBox);
 
-    // ---- Assemble grid + body ----
+    // ---------- ASSEMBLE GRID AND BODY ----------
     report_grid.appendChild(nameField.group);
     report_grid.appendChild(emailField.group);
     report_grid.appendChild(typeField.group);
@@ -437,7 +488,7 @@ function Report() {
     report_body.appendChild(descField.group);
     report_body.appendChild(upload_group);
 
-    // ---------- Footer ----------
+    // ---------- CREATE FOOTER ----------
     const report_footer = document.createElement("div");
     report_footer.className = "report_footer";
 
@@ -454,7 +505,7 @@ function Report() {
     report_footer.appendChild(cancel_report);
     report_footer.appendChild(submit_report);
 
-    // ---------- Assemble popup ----------
+    // ---------- ASSEMBLE COMPLETE POPUP ----------
     popup.appendChild(report_header);
     popup.appendChild(report_body);
     popup.appendChild(report_footer);
@@ -462,16 +513,15 @@ function Report() {
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
 
-    // ==========================
-    // Upload Image Preview
-    // ==========================
-
+    // ==========================================================================================
+    // IMAGE PREVIEW HANDLER
+    // Shows preview of selected image before upload
+    // ==========================================================================================
     uploadBox.addEventListener("click", () => {
         issueImage.click();
     });
 
     issueImage.addEventListener("change", () => {
-
         const file = issueImage.files[0];
 
         if (!file) return;
@@ -485,21 +535,12 @@ function Report() {
         };
 
         reader.readAsDataURL(file);
-
     });
 
-
-
-
-
-
-
-
-
-    // ==========================
-    // Field Validation Helpers
-    // ==========================
-
+    // ==========================================================================================
+    // VALIDATION HELPER FUNCTIONS
+    // Set and clear error messages for form fields
+    // ==========================================================================================
     function setError(field, message) {
         field.error.textContent = message;
         field.error.style.display = "block";
@@ -512,15 +553,18 @@ function Report() {
         field.group.classList.remove("has_error");
     }
 
-    // clear error as soon as the user starts fixing a field
+    // Clear errors on user input
     report_name.addEventListener("input", () => clearError(nameField));
     report_type.addEventListener("change", () => clearError(typeField));
     report_description.addEventListener("input", () => clearError(descField));
 
+    // ==========================================================================================
+    // FORM VALIDATION FUNCTION
+    // Validates all required fields before submission
+    // ==========================================================================================
     function validateForm() {
         let isValid = true;
 
-        // Full Name - required
         if (!report_name.value.trim()) {
             setError(nameField, "Full name is required.");
             isValid = false;
@@ -528,7 +572,6 @@ function Report() {
             clearError(nameField);
         }
 
-        // Issue Type - required
         if (!report_type.value) {
             setError(typeField, "Please select an issue type.");
             isValid = false;
@@ -536,7 +579,6 @@ function Report() {
             clearError(typeField);
         }
 
-        // Description - required
         if (!report_description.value.trim()) {
             setError(descField, "Please describe the issue.");
             isValid = false;
@@ -544,19 +586,21 @@ function Report() {
             clearError(descField);
         }
 
-        // Priority is always valid (Medium pre-checked), Email is optional
-
         return isValid;
     }
 
-    // ==========================
-    // Close Popup
-    // ==========================
-
+    // ==========================================================================================
+    // CLOSE POPUP FUNCTION
+    // Removes popup from DOM
+    // ==========================================================================================
     function closePopup() {
         overlay.remove();
     }
 
+    // ==========================================================================================
+    // EVENT LISTENERS - CLOSE POPUP
+    // Multiple ways to close the popup (X button, Cancel, ESC key, click outside)
+    // ==========================================================================================
     report_close.addEventListener("click", () => {
         closePopup();
         showInfoPopup("Report closed.", "info");
@@ -582,48 +626,70 @@ function Report() {
         }
     });
 
-   
-    submit_report.addEventListener("click",async () => {
-
+    // ==========================================================================================
+    // FORM SUBMISSION HANDLER
+    // Validates form, uploads image to Cloudinary, saves data to Firebase
+    // ==========================================================================================
+    submit_report.addEventListener("click", async () => {
+        
+        // Validate form first
         if (!validateForm()) {
             return;
         }
 
+        // Disable button and show loading state
+        submit_report.disabled = true;
+        submit_report.textContent = "Submitting...";
 
         try {
+            let imageUrl = "";
 
-    await addDoc(collection(db, "reports"), {
-       name: report_name.value.trim(),
-            email: report_email.value.trim(),
-            issue: report_type.value,
-            description: report_description.value.trim(),
-            priority: popup.querySelector('input[name="priority"]:checked').value,
-            image: issueImage.files[0] || null,
-        createdAt: serverTimestamp()
+            // Upload image to Cloudinary if file exists
+            if (issueImage.files[0]) {
+                showInfoPopup("Uploading image...", "info");
+                imageUrl = await uploadImageToCloudinary(issueImage.files[0]);
+            }
+
+            // Get selected priority value
+            const selectedPriority = popup.querySelector('input[name="priority"]:checked').value;
+
+            // Get assetId from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const assetId = urlParams.get("id");
+
+            // Save report to Firebase with Cloudinary image URL
+            await addDoc(collection(db, "reports"), {
+                assetId: assetId || "",
+                name: report_name.value.trim(),
+                email: report_email.value.trim() || "",
+                issue: report_type.value,
+                description: report_description.value.trim(),
+                priority: selectedPriority,
+                image: imageUrl,
+                createdAt: serverTimestamp()
+            });
+
+            // Close popup and show success message
+            closePopup();
+            showInfoPopup("Report submitted successfully!", "success");
+
+        } catch (error) {
+            console.error("Error submitting report:", error);
+            showInfoPopup("Failed to submit report. Please try again.", "error");
+            
+            // Re-enable submit button on error
+            submit_report.disabled = false;
+            submit_report.textContent = "Submit Report";
+        }
     });
-
-    closePopup();
-    showInfoPopup("Report submitted successfully.", "success");
-
-} catch (error) {
-    console.error(error);
-    showInfoPopup("Failed to submit report.", "error");
 }
 
-    
-
-        closePopup();
-
-        showInfoPopup("Report submitted successfully.", "success");
-
-    });
-
-}
-
-
+// ==========================================================================================
+// INITIALIZE REPORT BUTTON
+// Attaches Report function to the report button click event
+// ==========================================================================================
 const Report_btn = document.getElementById("Report_Issue_btn2");
 
 if (Report_btn) {
     Report_btn.addEventListener("click", Report);
 }
-
