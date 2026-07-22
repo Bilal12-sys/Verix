@@ -659,9 +659,10 @@ function Report() {
 
             // Save report to Firebase with Cloudinary image URL
             await addDoc(collection(db, "reports"), {
+                reporterUid: auth.currentUser ? auth.currentUser.uid : null,
                 assetId: assetId || "",
-                name: report_name.value.trim(),
-                email: report_email.value.trim() || "",
+                Reporter_name: report_name.value.trim(),
+                 Reporter_email: report_email.value.trim() || "",
                 issue: report_type.value,
                 description: report_description.value.trim(),
                 priority: selectedPriority,
