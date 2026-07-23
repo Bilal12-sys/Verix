@@ -28,6 +28,11 @@
                         <path d="M15 18l-6-6 6-6" />
                     </svg>
                 </div>
+
+                <div class="mobile_menu"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg></div>
             </div>
 
             <div class="items">
@@ -457,17 +462,17 @@
                         <div class="edit_grid">
 
                             <div class="edit_input">
-                                <label>Asset Name</label>
+                              <label for="edit_name">Asset Name</label>
                                 <input type="text" id="edit_name" placeholder="Asset Name" required>
                             </div>
 
                             <div class="edit_input">
-                                <label>Asset ID</label>
+                               <label for="edit_asset_id">Asset ID</label>
                                 <input type="text" id="edit_asset_id" readonly>
                             </div>
 
                             <div class="edit_input">
-                                <label>Category</label>
+                               <label for="edit_category">Category</label>
                                 <select id="edit_category" required>
                                     <option value="">Select Category</option>
                                     <option>Laptop</option>
@@ -482,7 +487,7 @@
                             </div>
 
                             <div class="edit_input">
-                                <label>Department</label>
+                                <label for="edit_department">Department</label>
                                 <select id="edit_department" required>
                                     <option value="">Select Department</option>
                                     <option>IT</option>
@@ -495,12 +500,12 @@
                             </div>
 
                             <div class="edit_input">
-                                <label>Location</label>
+                              <label for="edit_location">Location</label>
                                 <input type="text" id="edit_location" placeholder="Asset Location" required>
                             </div>
 
                             <div class="edit_input">
-                                <label>Status</label>
+                             <label for="edit_status">Status</label>
                                 <select id="edit_status" required>
                                     <option>Active</option>
                                     <option>Maintenance</option>
@@ -512,7 +517,7 @@
                         </div>
 
                         <div class="edit_description">
-                            <label>Description</label>
+                          <label for="edit_description">Description</label>
                             <textarea id="edit_description" rows="5"
                                 placeholder="Write asset description..."></textarea>
                         </div>

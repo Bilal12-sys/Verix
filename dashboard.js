@@ -6,6 +6,9 @@ import {
     getDocs
 } from "./config/firebase.js";
 
+console.log("dashboard.js loaded");
+
+
 function box(text, type = "info") {
     const box_parent = document.createElement("div");
     const popup = document.createElement("div");
