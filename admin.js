@@ -523,7 +523,7 @@ const download_qr = document.getElementById("download_qr");
 let currentViewAsset = null;
 
 function getPublicAssetUrl(asset) {
-    return `${window.location.origin}/asset.html?id=${encodeURIComponent(asset.assetId)}`;
+    return `${window.location.origin}/public.html?id=${encodeURIComponent(asset.assetId)}`;
 }
 
 function openViewModal(asset) {
